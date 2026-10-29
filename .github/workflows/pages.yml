@@ -1,0 +1,45 @@
+name: Publicar arquivos públicos
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validar e extrair conteúdo
+        run: |
+          python - <<'PY'
+          import pathlib,json,hashlib,zipfile
+          p=pathlib.Path('.')
+          m=json.loads((p/'archive-manifest.json').read_text())
+          with open('/tmp/public.zip','wb') as output:
+              for item in m['parts']:
+                  b=(p/item['name']).read_bytes()
+                  assert len(b)==item['bytes'] and hashlib.sha256(b).hexdigest()==item['sha256'],item['name']
+                  output.write(b)
+          dest=pathlib.Path('_site');dest.mkdir(exist_ok=True)
+          with zipfile.ZipFile('/tmp/public.zip') as z:
+              assert z.testzip() is None
+              for name in z.namelist():
+                  assert '/' not in name and '\\' not in name,name
+              z.extractall(dest)
+          print('Arquivos verificados:',len(list(dest.iterdir())))
+          PY
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4

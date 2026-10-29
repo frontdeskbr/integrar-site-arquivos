@@ -1,0 +1,55 @@
+{
+  "site": "integrar",
+  "parts": [
+    {
+      "name": "public.zip.part000",
+      "bytes": 20971520,
+      "sha256": "5b452540ad4f443fef84acf54c0d80df048d16af92e03b80d5af2da47d801be8"
+    },
+    {
+      "name": "public.zip.part001",
+      "bytes": 20971520,
+      "sha256": "6c79ea8f1245fd01295978cb301231faf709b78f9cfe221405e5d49f74d24ff1"
+    },
+    {
+      "name": "public.zip.part002",
+      "bytes": 20971520,
+      "sha256": "a2ebeb502fcad24a1988f97e489eec221a07932e5ccc4be89156c245a5038e9b"
+    },
+    {
+      "name": "public.zip.part003",
+      "bytes": 20971520,
+      "sha256": "af36590d1345d1103790b6e7fe6c0b3b694041a92ed81074c845d64125335d71"
+    },
+    {
+      "name": "public.zip.part004",
+      "bytes": 20971520,
+      "sha256": "0c40d18077b4205baa79febe9e216c798d136b93988debbab3a71a8b00a528e4"
+    },
+    {
+      "name": "public.zip.part005",
+      "bytes": 20971520,
+      "sha256": "9ac9d8933ec89eb81207754d2c0f2f158e2bddc8865a43f648c518dd9b36e900"
+    },
+    {
+      "name": "public.zip.part006",
+      "bytes": 20971520,
+      "sha256": "15d044a200280fb944ee3934a604fa945a0e46efe9c182ef5d28247f71321521"
+    },
+    {
+      "name": "public.zip.part007",
+      "bytes": 20971520,
+      "sha256": "fb93d8d551faa3d7ffe4bd682c121f3bac6c26f9754aaa000064e21aa61c6957"
+    },
+    {
+      "name": "public.zip.part008",
+      "bytes": 20971520,
+      "sha256": "2f27b571a620079ebf81a22f91bcf67f39ed570bb2051d4d37e2f3b0bb1077bc"
+    },
+    {
+      "name": "public.zip.part009",
+      "bytes": 19509264,
+      "sha256": "22cf28d2e095b9927807b72657c1313f55024493aac9faba8200f2f0f62e86eb"
+    }
+  ]
+}

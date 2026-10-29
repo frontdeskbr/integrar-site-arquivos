@@ -2,6 +2,7 @@ name: Publicar arquivos públicos
 on:
   push:
     branches: [main]
+    paths: [news.json, .github/workflows/pages.yml]
   workflow_dispatch:
 permissions:
   contents: read

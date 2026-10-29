@@ -2,6 +2,8 @@ name: Publicar arquivos públicos
 on:
   push:
     branches: [main]
+  release:
+    types: [published]
   workflow_dispatch:
 permissions:
   contents: read
@@ -18,17 +20,14 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - name: Baixar pacote público verificado
+        run: |
+          curl --fail --location --retry 3 --output /tmp/public.zip "https://github.com/${{ github.repository }}/releases/download/v1.0.0/public.zip"
+          echo "19cf7428b3f18c70787996053c7ca0301c242fabe3312199f5778b514818d29e  /tmp/public.zip" | sha256sum --check -
       - name: Validar e extrair conteúdo
         run: |
           python - <<'PY'
-          import pathlib,json,hashlib,zipfile
-          p=pathlib.Path('.')
-          m=json.loads((p/'archive-manifest.json').read_text())
-          with open('/tmp/public.zip','wb') as output:
-              for item in m['parts']:
-                  b=(p/item['name']).read_bytes()
-                  assert len(b)==item['bytes'] and hashlib.sha256(b).hexdigest()==item['sha256'],item['name']
-                  output.write(b)
+          import pathlib,zipfile
           dest=pathlib.Path('_site');dest.mkdir(exist_ok=True)
           with zipfile.ZipFile('/tmp/public.zip') as z:
               assert z.testzip() is None

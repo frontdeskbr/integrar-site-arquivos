@@ -2,8 +2,6 @@ name: Publicar arquivos públicos
 on:
   push:
     branches: [main]
-  release:
-    types: [published]
   workflow_dispatch:
 permissions:
   contents: read
@@ -34,6 +32,9 @@ jobs:
               for name in z.namelist():
                   assert '/' not in name and '\\' not in name,name
               z.extractall(dest)
+          if pathlib.Path('news.json').exists():
+              import shutil
+              shutil.copyfile('news.json',dest/'news.json')
           print('Arquivos verificados:',len(list(dest.iterdir())))
           PY
       - uses: actions/configure-pages@v5
